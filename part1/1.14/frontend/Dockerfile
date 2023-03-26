@@ -9,6 +9,8 @@ WORKDIR /usr/src/app
 # Copy source code
 COPY . .
 
+ENV REACT_APP_BACKEND_URL=http://localhost:8080
+
 RUN npm install
 
 # Build the static file

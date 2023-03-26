@@ -7,7 +7,7 @@ WORKDIR /usr/src/app
 # Copy source code
 COPY . .
 
-ENV REQUEST_ORIGIN=http://localhost:8080
+ENV REQUEST_ORIGIN=http://localhost:5000
 
 ENV GOPATH=/go
 # Build project to create binary server
