@@ -1,0 +1,95 @@
+Excercise 1.1
+docker ps -a | grep nginx
+ab7e6b597786   nginx                       "/docker-entrypoint.…"   2 minutes ago   Exited (0) About a minute ago             crazy_khorana
+d0fae0f8b6b7   nginx                       "/docker-entrypoint.…"   2 minutes ago   Exited (0) 23 seconds ago                 epic_torvalds
+c14599bc4d24   nginx                       "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes                    80/tcp    gifted_swartz
+
+Excercise 1.2
+docker ps -a
+CONTAINER ID   IMAGE     COMMAND   CREATED   STATUS    PORTS     NAMES
+
+docker images
+REPOSITORY                                                TAG                                                                          IMAGE ID       CREATED         SIZE
+example-front-end                                         latest                                                                       9d63f8fad778   18 hours ago    1.25GB
+
+Excercise 1.3
+docker run -d -it --rm --name secretmsn devopsdockeruh/simple-web-service:ubuntu
+docker exec -it secretmsn bash
+root@7c8cf6b9868e:/usr/src/app# tail -f ./text.log
+Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+
+Excercise 1.4: Missing dependencies
+docker run -d -it --rm --name ubt  ubuntu sh -c 'echo "Input website:"; read website; echo "Searching.."; sleep 1; curl http://$website;'
+docker exec -it ubt bash
+root@df6b134d1ac4:/# apt update &&  apt upgrade
+root@df6b134d1ac4:/# apt install curl
+docker attach ubt
+helsinki.fi
+Searching..
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.20.1</center>
+</body>
+</html>
+
+Excercise 1.5
+docker pull devopsdocheruh/simple-web-service:alpine
+docker images
+ REPOSITORY                          TAG       IMAGE ID       CREATED        SIZE
+        devopsdockeruh/simple-web-service   ubuntu    4e3362e907d5   4 months ago   83MB
+        devopsdockeruh/simple-web-service   alpine    fd312adc88e0   4 months ago   15.7MB
+
+docker tag devopsdockeruh/simple-web-service:alpine wevalp:alpine
+docker container run -d -it --name web  wevalp:alpine
+docker exec -it web sh
+/usr/src/app # cat text.log
+        Secret message is: 'You can find the source code here: https://github.com/docker-hy'
+
+Excercise 1.6
+docker run -it devopsdockeruh/pull_exercise
+Give me the password: basics
+         You found the correct password. Secret message is:
+         "This is the secret message"
+
+Excercise 1.7
+docker build . -t web-serve
+docker run web-serve
+
+Excercise 1.8
+docker build . -t curler
+docker run -it curler
+Input website:
+helsinki.fi
+Searching..
+<html>
+<head><title>301 Moved Permanently</title></head>
+<body>
+<center><h1>301 Moved Permanently</h1></center>
+<hr><center>nginx/1.20.1</center>
+</body>
+</html>
+
+Excercise 1.9: To make this work, you have to creat text.log at the directory first
+
+touch text.log
+docker run --rm -d -it --name websitetest -v "$(pwd)/text.log:/usr/src/app/text.log" devopsdockeruh/simple-web-service
+
+Excercise 1.10:
+docker run --rm -d -it --name webtest -p 8080:8080 web-server
+
+Excercise 1.11:
+Since openjdk image is depreciated in Docker. I want to try replaced image and it work great.
+
+docker build . -t spring-example-project && docker run -p 8080:8080 spring-example-project
+
+Excercise 1.12 *:
+docker build . -t example-frontend && docker run --rm -p 5000:5000 example-frontend
+
+Excercise 1.13:
+docker build . -t ex-backend && docker run --rm -p 8080:8080 ex-backend
+
+Excercise 1.14:
+docker build . -t ex-backend && docker run --rm -p 8080:8080 ex-backend
+docker build . -t ex-frontendv2 && docker run --rm -p 5000:5000 ex-frontendv2
