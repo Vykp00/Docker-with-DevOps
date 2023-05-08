@@ -1,9 +1,9 @@
-version: "3.9"
+version: "3.8"
 
 services:
     web-log:
       image: devopsdockeruh/simple-web-service
       ports:
-        - 8000:8000
-      command: docker run -d devopsdockeruh/simple-web-service 
+          - 8080:8080
+      command: server
       container_name: web-log
